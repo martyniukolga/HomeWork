@@ -1,0 +1,67 @@
+#1 (5)
+function test() {
+    console.log(‘Привет’);
+  }
+  setTimeout(test, 1000);
+  
+#2(5)
+function sleep(ms) {
+  return new Promise(function(resolve, reject) {
+    setTimeout(() => resolve("done"), 1000);
+});
+}
+
+#3 (5)
+function getText() {
+  return new Promise(function(resolve, reject) {
+   var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+   link = "https://www.w3.org/TR/PNG/iso_8859-1.txt";
+   var xhr = new XMLHttpRequest();
+   xhr.onreadystatechange = function() {
+      if (xhr.readyState == 4) {
+        if (xhr.status != 200) {
+          reject("Error, status code = " + xhr.status)
+        } else {
+          resolve(xhr.responseText);
+        }
+      }
+    }
+    xhr.open('GET', link, true)
+    xhr.send();
+  });
+}
+getText().then(function(result) {
+  console.log(result)
+}, function(error) {
+  console.log(error)
+})
+
+
+#4(5)
+async function getText() {
+  return new Promise(function(resolve, reject) {
+   var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+   link = "https://www.w3.org/TR/PNG/iso_8859-1.txt";
+   var xhr = new XMLHttpRequest();
+   xhr.onreadystatechange = function() {
+      if (xhr.readyState == 4) {
+        if (xhr.status != 200) {
+          reject("Error, status code = " + xhr.status)
+        } else {
+          resolve(xhr.responseText);
+        }
+      }
+    }
+    xhr.open('GET', link, true)
+    xhr.send();
+  });
+}
+async function logText() {
+  try {
+    let user = await getText()
+    console.log(user)
+  } catch (err) {
+    console.log(err)
+  }
+}
+logText()
